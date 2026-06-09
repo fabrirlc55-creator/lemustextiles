@@ -850,13 +850,16 @@ function renderProducts(){
   const grid=document.getElementById('productsGrid');
   const filtered=activeCat==='all'?products:products.filter(p=>p.cat===activeCat);
   grid.innerHTML=filtered.map(p=>`
-    <div class="product-card" onclick="openModal(${p.id},'${p.name}','${catLabel(p.cat)}','${p.img}','${p.emoji}')">
+    <div class="product-card">
       <img class="product-img" src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="product-img-placeholder" style="display:none">${p.emoji}</div>
       <div class="product-info">
         <div class="product-cat">${catLabel(p.cat)}</div>
         <div class="product-name">${p.name}</div>
-        <button class="product-btn" onclick="event.stopPropagation();cotizarProducto('${p.name}')">💬 Cotizar este producto</button>
+        <div style="display:flex;gap:6px;margin-top:6px">
+          <button class="product-btn" style="flex:1;background:#f0f4ff;color:#1a3a8f;border:1.5px solid #1a3a8f" onclick="event.stopPropagation();openModal(${p.id},'${p.name}','${catLabel(p.cat)}','${p.img}','${p.emoji}')">Ver producto</button>
+          <button class="product-btn" style="flex:1" onclick="event.stopPropagation();cotizarProducto('${p.name}')">💬 Cotizar</button>
+        </div>
       </div>
     </div>
   `).join('');
